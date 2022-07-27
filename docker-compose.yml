@@ -1,0 +1,18 @@
+version : "3.3"
+services:
+  app:
+    container_name: test_bank
+    restart: always 
+    build: .
+    links:
+      - postgres
+
+  postgres:
+    image: postgres
+    # environment: 
+    #   POSTGRES_DB: ${DBNAME}
+    #   POSTGRES_USER: ${DBUSER}
+    #   POSTGRES_PASSWORD: ${DBPASSWORD}
+    ports:
+      - "1313:5432"
+    restart: always
