@@ -13,6 +13,7 @@ For create an account to send POST request "http://localhost:1313/user/id/accoun
     json file :
     currency:only 1 currency "USD" , "MXN" ,"COP" , 
     total : default (0.00 ))
+    
 For get all user accounts need to send GET request "http://localhost:1313/user/id/account"
 
 Transaction
