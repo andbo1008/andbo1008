@@ -4,15 +4,38 @@ services:
     container_name: test_bank
     restart: always 
     build: .
+    ports:
+      - "1313:1313"
+    depends_on:
+      - postgres
     links:
       - postgres
-
+      
   postgres:
     image: postgres
-    # environment: 
-    #   POSTGRES_DB: ${DBNAME}
-    #   POSTGRES_USER: ${DBUSER}
-    #   POSTGRES_PASSWORD: ${DBPASSWORD}
+    environment: 
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_DBNAME: postgres
+      POSTGRES_DBUSER: postgres
+      POSTGRES_PASSWORD: testbank
     ports:
-      - "1313:5432"
+      - "5432:5432"
+    networks:
+      back:
+        ipv4_address: 127.0.0.1:5432
+        ipv6_address: 0.0.0.0:5432
     restart: always
+
+networks:
+  back:
+    driver: bridge
+    enable_ipv6: true
+    internal: true
+    ipam:
+     driver: default
+     config:
+       - subnet: 127.0.0.1:1313
+       - subnet: 0.0.0.0:5432 
+#External network actually
+  default:
+    driver: bridge
